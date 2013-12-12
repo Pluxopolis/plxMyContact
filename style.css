@@ -1,6 +1,13 @@
 #form_contact {
 	margin: 20px 0 20px 0;
 }
+
+#text_contact { /* Style du texte inséré avant le formulaire */
+	border-bottom:1px solid grey;
+	margin-top: -20px;
+	padding-bottom: 15px;
+}
+
 .contact_error {
 	margin: 20px 20px 20px 20px;
 	padding: 5px 15px 5px 15px;

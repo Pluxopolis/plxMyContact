@@ -2,7 +2,7 @@
 /**
  * Plugin plxMyContact
  *
- * @version	1.5.1
+ * @version	1.5.5
  * @date	13/03/2012
  * @author	Stephane F
  **/

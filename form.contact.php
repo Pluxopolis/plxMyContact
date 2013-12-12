@@ -36,6 +36,13 @@ if(!empty($_POST)) {
 }
 
 ?>
+
+<?php if($plxPlugin->getParam('mnuText')): ?>
+<div id="text_contact">
+	<?php echo $plxPlugin->getParam('mnuText') ?>
+</div>
+<?php endif; ?>
+
 <div id="form_contact">
 	<?php if($error): ?>
 	<p class="contact_error"><?php echo $error ?></p>

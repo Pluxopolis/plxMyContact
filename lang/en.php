@@ -10,6 +10,7 @@ $LANG = array(
 
 'L_MENU_DISPLAY'			=> 'Display the menu of the contact page',
 'L_MENU_TITLE'		    	=> 'Menu title',
+'L_MENU_TEXT'		    	=> 'Text inserted at the top of the form',
 'L_MENU_POS'		    	=> 'Menu position',
 'L_EMAIL'		   			=> 'Recipients email *',
 'L_EMAIL_CC'	   			=> 'Carbon copy of the email recipients *',
@@ -34,7 +35,7 @@ $LANG = array(
 'L_ERR_ANTISPAM'			=> 'Anti-spam verification failed',
 'L_ERR_SENDMAIL'			=> 'An error has occurred while sending your message',
 
-'L_FORM_NAME'				=> 'Your name',
+'L_FORM_NAME'				=> 'You name',
 'L_FORM_MAIL'				=> 'Your e-mail address',
 'L_FORM_CONTENT'			=> 'Content of your message',
 'L_FORM_ANTISPAM'			=> 'Anti-spam verification',

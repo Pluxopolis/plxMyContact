@@ -8,6 +8,7 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('mnuDisplay', $_POST['mnuDisplay'], 'numeric');
 	$plxPlugin->setParam('mnuName', $_POST['mnuName'], 'string');
 	$plxPlugin->setParam('mnuPos', $_POST['mnuPos'], 'numeric');
+	$plxPlugin->setParam('mnuText', $_POST['mnuText'], 'string');	
 	$plxPlugin->setParam('email', $_POST['email'], 'string');
 	$plxPlugin->setParam('email_cc', $_POST['email_cc'], 'string');
 	$plxPlugin->setParam('email_bcc', $_POST['email_bcc'], 'string');
@@ -22,6 +23,7 @@ if(!empty($_POST)) {
 $mnuDisplay =  $plxPlugin->getParam('mnuDisplay')=='' ? 1 : $plxPlugin->getParam('mnuDisplay');
 $mnuName =  $plxPlugin->getParam('mnuName')=='' ? $plxPlugin->getLang('L_DEFAULT_MENU_NAME') : $plxPlugin->getParam('mnuName');
 $mnuPos =  $plxPlugin->getParam('mnuPos')=='' ? 2 : $plxPlugin->getParam('mnuPos');
+$mnuText =  $plxPlugin->getParam('mnuText')=='' ? '' : $plxPlugin->getParam('mnuText');
 $email = $plxPlugin->getParam('email')=='' ? '' : $plxPlugin->getParam('email');
 $email_cc = $plxPlugin->getParam('email_cc')=='' ? '' : $plxPlugin->getParam('email_cc');
 $email_bcc = $plxPlugin->getParam('email_bcc')=='' ? '' : $plxPlugin->getParam('email_bcc');
@@ -56,6 +58,8 @@ if(function_exists('mail')) {
 		<?php plxUtils::printInput('mnuName',$mnuName,'text','20-20') ?>
 		<p class="field"><label for="id_mnuPos"><?php $plxPlugin->lang('L_MENU_POS') ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('mnuPos',$mnuPos,'text','2-5') ?>
+		<p class="field"><label for="id_mnuText"><?php $plxPlugin->lang('L_MENU_TEXT') ?>&nbsp;:</label></p>
+		<?php plxUtils::printArea('mnuText',$mnuText,'text','5-10') ?>
 		<p class="field"><label for="id_email"><?php $plxPlugin->lang('L_EMAIL') ?>&nbsp;:</label></p>
 		<?php plxUtils::printInput('email',$email,'text','50-120') ?>
 		<p class="field"><label for="id_email_cc"><?php $plxPlugin->lang('L_EMAIL_CC') ?>&nbsp;:</label></p>

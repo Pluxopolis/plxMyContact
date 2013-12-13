@@ -1,9 +1,6 @@
 <?php
 /**
  * Plugin plxMyContact
- *
- * @version	1.5.1
- * @date	13/03/2012
  * @author	Stephane F
  **/
 class plxMyContact extends plxPlugin {
@@ -17,13 +14,13 @@ class plxMyContact extends plxPlugin {
 	 **/
 	public function __construct($default_lang) {
 
-        # appel du constructeur de la classe plxPlugin (obligatoire)
-        parent::__construct($default_lang);
+		# appel du constructeur de la classe plxPlugin (obligatoire)
+		parent::__construct($default_lang);
 
 		# droits pour accèder à la page config.php du plugin
 		$this->setConfigProfil(PROFIL_ADMIN);
 
-        # déclaration des hooks
+		# déclaration des hooks
 		$this->addHook('AdminTopBottom', 'AdminTopBottom');
 		if(plxUtils::checkMail($this->getParam('email'))) {
 			$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
@@ -33,7 +30,7 @@ class plxMyContact extends plxPlugin {
 			$this->addHook('ThemeEndHead', 'ThemeEndHead');
 			$this->addHook('SitemapStatics', 'SitemapStatics');
 		}
-    }
+	}
 
 	/**
 	 * Méthode de traitement du hook plxShowConstruct
@@ -41,7 +38,7 @@ class plxMyContact extends plxPlugin {
 	 * @return	stdio
 	 * @author	Stephane F
 	 **/
-    public function plxShowConstruct() {
+	public function plxShowConstruct() {
 
 		# infos sur la page statique
 		$string  = "if(\$this->plxMotor->mode=='contact') {";
@@ -57,7 +54,7 @@ class plxMyContact extends plxPlugin {
 		$string .= "	\$this->plxMotor->aStats = array_merge(\$this->plxMotor->aStats, \$array);";
 		$string .= "}";
 		echo "<?php ".$string." ?>";
-    }
+	}
 
 	/**
 	 * Méthode de traitement du hook plxMotorPreChauffageBegin
@@ -65,7 +62,7 @@ class plxMyContact extends plxPlugin {
 	 * @return	stdio
 	 * @author	Stephane F
 	 **/
-    public function plxMotorPreChauffageBegin() {
+	public function plxMotorPreChauffageBegin() {
 
 		$template = $this->getParam('template')==''?'static.php':$this->getParam('template');
 
@@ -79,7 +76,7 @@ class plxMyContact extends plxPlugin {
 		";
 
 		echo "<?php ".$string." ?>";
-    }
+	}
 
 	/**
 	 * Méthode de traitement du hook plxShowStaticListEnd
@@ -87,7 +84,7 @@ class plxMyContact extends plxPlugin {
 	 * @return	stdio
 	 * @author	Stephane F
 	 **/
-    public function plxShowStaticListEnd() {
+	public function plxShowStaticListEnd() {
 
 		# ajout du menu pour accèder à la page de contact
 		if($this->getParam('mnuDisplay')) {
@@ -95,7 +92,7 @@ class plxMyContact extends plxPlugin {
 			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?contact').'\">".$this->getParam('mnuName')."</a></li>'); ?>";
 		}
 
-    }
+	}
 
 	/**
 	 * Méthode qui ajoute le fichier css dans le fichier header.php du thème

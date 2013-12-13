@@ -36,6 +36,7 @@ if(!empty($_POST)) {
 }
 
 ?>
+
 <div id="form_contact">
 	<?php if($error): ?>
 	<p class="contact_error"><?php echo $error ?></p>
@@ -43,6 +44,11 @@ if(!empty($_POST)) {
 	<?php if($success): ?>
 	<p class="contact_success"><?php echo plxUtils::strCheck($success) ?></p>
 	<?php else: ?>
+	<?php if($plxPlugin->getParam('mnuText')): ?>
+	<div class="text_contact">
+	<?php echo $plxPlugin->getParam('mnuText') ?>
+	</div>
+	<?php endif; ?>
 	<form action="#form" method="post">
 		<fieldset>
 		<p><label for="name"><?php $plxPlugin->lang('L_FORM_NAME') ?>&nbsp;:</label></p>

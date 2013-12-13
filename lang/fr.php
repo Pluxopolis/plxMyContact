@@ -10,6 +10,7 @@ $LANG = array(
 
 'L_MENU_DISPLAY'			=> 'Afficher le menu de la page de contact',
 'L_MENU_TITLE'		    	=> 'Titre du menu',
+'L_MENU_TEXT'		    	=> 'Texte à insérer au dessus du formulaire',
 'L_MENU_POS'		    	=> 'Position du menu',
 'L_EMAIL'		   			=> 'Destinataire(s) du mail *',
 'L_EMAIL_CC'	   			=> 'Destinataire(s) en copie du mail *',

@@ -1,5 +1,6 @@
 ## Version 1.5.5 (11/11/2013) ##
 [+] Ajout d'un champ texte qui s'affiche au dessus du formulaire paramétrable depuis l'interface (contribution JulesVincent)
+[+] Balise title dans le lien du menu de la page de contact
 
 ## Version 1.5.4 (13/06/2013) ##
 [+] Compatibilité PluXml 5.2

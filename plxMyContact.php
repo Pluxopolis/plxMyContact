@@ -69,7 +69,8 @@ class plxMyContact extends plxPlugin {
 		$string = "
 		if(\$this->get && preg_match('/^contact\/?/',\$this->get)) {
 			\$this->mode = 'contact';
-			\$this->cible = '../../plugins/plxMyContact/form';
+			\$prefix = str_repeat('../', substr_count(trim(PLX_ROOT.\$this->aConf['racine_statiques'], '/'), '/'));
+			\$this->cible = \$prefix.'plugins/plxMyContact/form';
 			\$this->template = '".$template."';
 			return true;
 		}

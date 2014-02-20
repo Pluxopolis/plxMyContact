@@ -1,3 +1,6 @@
+## Version 1.5.6 (20/02/2014) ##
+[+] Compatibilité plugin plxMyMultiLingue
+
 ## Version 1.5.5 (13/12/2013) ##
 [+] Ajout d'un champ texte qui s'affiche au dessus du formulaire paramétrable depuis l'interface (contribution JulesVincent)
 [+] Balise title dans le lien du menu de la page de contact

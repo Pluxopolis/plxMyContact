@@ -21,17 +21,24 @@ class plxMyContact extends plxPlugin {
 		$this->setConfigProfil(PROFIL_ADMIN);
 
 		# déclaration des hooks
+		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');		
 		$this->addHook('AdminTopBottom', 'AdminTopBottom');
 		if(plxUtils::checkMail($this->getParam('email'))) {
 			$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
 			$this->addHook('plxShowConstruct', 'plxShowConstruct');
 			$this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
 			$this->addHook('plxShowPageTitle', 'plxShowPageTitle');
-			$this->addHook('ThemeEndHead', 'ThemeEndHead');
 			$this->addHook('SitemapStatics', 'SitemapStatics');
 		}
+		
 	}
 
+	public function AdminTopEndHead() {	
+		if(basename($_SERVER['SCRIPT_NAME'])=='parametres_plugin.php') {
+			echo '<link href="'.PLX_PLUGINS.'plxMyContact/tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
+		}
+	}	
+	
 	/**
 	 * Méthode de traitement du hook plxShowConstruct
 	 *
@@ -41,10 +48,10 @@ class plxMyContact extends plxPlugin {
 	public function plxShowConstruct() {
 
 		# infos sur la page statique
-		$string  = "if(\$this->plxMotor->mode=='contact') {";
+		$string  = "if(\$this->plxMotor->mode=='".$this->getParam('url')."') {";
 		$string .= "	\$array = array();";
 		$string .= "	\$array[\$this->plxMotor->cible] = array(
-			'name'		=> '".$this->getParam('mnuName')."',
+			'name'		=> '".$this->getParam('mnuName_'.$this->default_lang)."',
 			'menu'		=> '',
 			'url'		=> 'contact',
 			'readable'	=> 1,
@@ -67,8 +74,8 @@ class plxMyContact extends plxPlugin {
 		$template = $this->getParam('template')==''?'static.php':$this->getParam('template');
 
 		$string = "
-		if(\$this->get && preg_match('/^contact\/?/',\$this->get)) {
-			\$this->mode = 'contact';
+		if(\$this->get && preg_match('/^".$this->getParam('url')."\/?/',\$this->get)) {
+			\$this->mode = '".$this->getParam('url')."';
 			\$prefix = str_repeat('../', substr_count(trim(PLX_ROOT.\$this->aConf['racine_statiques'], '/'), '/'));
 			\$this->cible = \$prefix.'plugins/plxMyContact/form';
 			\$this->template = '".$template."';
@@ -89,20 +96,10 @@ class plxMyContact extends plxPlugin {
 
 		# ajout du menu pour accèder à la page de contact
 		if($this->getParam('mnuDisplay')) {
-			echo "<?php \$class = \$this->plxMotor->mode=='contact'?'active':'noactive'; ?>";
-			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?contact').'\" title=\"".$this->getParam('mnuName')."\">".$this->getParam('mnuName')."</a></li>'); ?>";
+			echo "<?php \$class = \$this->plxMotor->mode=='".$this->getParam('url')."'?'active':'noactive'; ?>";
+			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\" title=\"".$this->getParam('mnuName_'.$this->default_lang)."\">".$this->getParam('mnuName_'.$this->default_lang)."</a></li>'); ?>";
 		}
 
-	}
-
-	/**
-	 * Méthode qui ajoute le fichier css dans le fichier header.php du thème
-	 *
-	 * @return	stdio
-	 * @author	Stephane F
-	 **/
-	public function ThemeEndHead() {
-		echo "\t".'<link rel="stylesheet" type="text/css" href="'.PLX_PLUGINS.'plxMyContact/style.css" media="screen" />'."\n";
 	}
 
 	/**
@@ -114,7 +111,7 @@ class plxMyContact extends plxPlugin {
 	public function plxShowPageTitle() {
 		echo '<?php
 			if($this->plxMotor->mode == "contact") {
-				echo plxUtils::strCheck($this->plxMotor->aConf["title"]." - '.$this->getParam('mnuName').'");
+				echo plxUtils::strCheck($this->plxMotor->aConf["title"]." - '.$this->getParam('mnuName_'.$this->default_lang).'");
 				return true;
 			}
 		?>';
@@ -130,7 +127,7 @@ class plxMyContact extends plxPlugin {
 		echo '<?php
 		echo "\n";
 		echo "\t<url>\n";
-		echo "\t\t<loc>".$plxMotor->urlRewrite("?contact")."</loc>\n";
+		echo "\t\t<loc>".$plxMotor->urlRewrite("?'.$this->getParam('url').'")."</loc>\n";
 		echo "\t\t<changefreq>monthly</changefreq>\n";
 		echo "\t\t<priority>0.8</priority>\n";
 		echo "\t</url>\n";

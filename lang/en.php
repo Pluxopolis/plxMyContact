@@ -5,9 +5,9 @@ $LANG = array(
 'L_PAGE_TITLE'				=> 'Contact',
 
 # config.php
+'L_MAIN'					=> 'Main',
 'L_MAIL_AVAILABLE'			=> 'Mail sending function available',
 'L_MAIL_NOT_AVAILABLE'		=> 'Mail sending function unavailable',
-
 'L_MENU_DISPLAY'			=> 'Display the menu of the contact page',
 'L_MENU_TITLE'		    	=> 'Menu title',
 'L_MENU_TEXT'		    	=> 'Text inserted at the top of the form',
@@ -19,6 +19,7 @@ $LANG = array(
 'L_THANKYOU_MESSAGE'		=> 'Thank you message',
 'L_TEMPLATE'				=> 'Template',
 'L_CAPTCHA'					=> 'Enable anti spam-capcha',
+'L_URL'						=> 'Url parameter',
 'L_SAVE'					=> 'Save',
 'L_COMMA'					=> '* seperated by comma',
 

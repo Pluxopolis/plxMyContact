@@ -25,7 +25,7 @@ if(!empty($_POST)) {
 		$error = $plxPlugin->getLang('L_ERR_ANTISPAM');
 	if(!$error) {
 		if(plxUtils::sendMail($name,$mail,$plxPlugin->getParam('email'),$plxPlugin->getParam('subject'),$content,'text',$plxPlugin->getParam('email_cc'),$plxPlugin->getParam('email_bcc')))
-			$success = $plxPlugin->getParam('thankyou');
+			$success = $plxPlugin->getParam('thankyou_'.$plxPlugin->default_lang);
 		else
 			$error = $plxPlugin->getLang('L_ERR_SENDMAIL');
 	}
@@ -44,9 +44,9 @@ if(!empty($_POST)) {
 	<?php if($success): ?>
 	<p class="contact_success"><?php echo plxUtils::strCheck($success) ?></p>
 	<?php else: ?>
-	<?php if($plxPlugin->getParam('mnuText')): ?>
+	<?php if($plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang)): ?>
 	<div class="text_contact">
-	<?php echo $plxPlugin->getParam('mnuText') ?>
+	<?php echo $plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang) ?>
 	</div>
 	<?php endif; ?>
 	<form action="#form" method="post">

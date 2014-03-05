@@ -5,9 +5,9 @@ $LANG = array(
 'L_PAGE_TITLE'					=> 'Contacto',
 
 # config.php
+'L_MAIN'						=> 'Principal',
 'L_MAIL_AVAILABLE'				=> 'Función Mail sending disponible',
 'L_MAIL_NOT_AVAILABLE'			=> 'Función Mail sending no disponible',
-
 'L_MENU_DISPLAY'				=> 'Mostrar en el menu superior la página de contacto',
 'L_MENU_TITLE'					=> 'Nombre en el menú',
 'L_MENU_TEXT'					=> 'Texto insertado en la parte superior del formulario',

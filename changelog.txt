@@ -1,3 +1,9 @@
+﻿## Version 1.6 (27/02/2014) ##
+[+] Paramètrage du lien dans l'url
+[+] Gestion du paramètrage multilingue
+[+] Gestion css à partir de la configuration du plugin
+[+] Compatibilité avec le plugin plxMyMultiLingue
+
 ## Version 1.5.6 (20/02/2014) ##
 [+] Compatibilité plugin plxMyMultiLingue
 

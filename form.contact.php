@@ -51,16 +51,13 @@ if(!empty($_POST)) {
 	<?php endif; ?>
 	<form action="#form" method="post">
 		<fieldset>
-		<p><label for="name"><?php $plxPlugin->lang('L_FORM_NAME') ?>&nbsp;:</label></p>
-		<input id="name" name="name" type="text" size="30" value="<?php echo plxUtils::strCheck($name) ?>" maxlength="30" />
-		<p><label for="mail"><?php $plxPlugin->lang('L_FORM_MAIL') ?>&nbsp;:</label></p>
-		<input id="mail" name="mail" type="text" size="30" value="<?php echo plxUtils::strCheck($mail) ?>" />
-		<p><label for="message"><?php $plxPlugin->lang('L_FORM_CONTENT') ?>&nbsp;:</label></p>
-		<textarea id="message" name="content" cols="60" rows="12"><?php echo plxUtils::strCheck($content) ?></textarea>
+		<input id="name" name="name" type="text" size="30" placeholder="<?php $plxPlugin->lang('L_FORM_NAME') ?>" value="<?php echo plxUtils::strCheck($name) ?>" maxlength="30" />
+		<input id="mail" name="mail" type="text" size="30" placeholder="<?php $plxPlugin->lang('L_FORM_MAIL') ?>" value="<?php echo plxUtils::strCheck($mail) ?>" />
+		<textarea id="message" name="content" cols="60" placeholder="<?php $plxPlugin->lang('L_FORM_CONTENT') ?>" rows="12"><?php echo plxUtils::strCheck($content) ?></textarea>
 		<?php if($captcha): ?>
 		<p><label for="id_rep"><strong><?php $plxPlugin->lang('L_FORM_ANTISPAM') ?></strong>&nbsp;:</label></p>
 		<?php echo $plxShow->capchaQ() ?>&nbsp;:&nbsp;<input id="id_rep" name="rep" type="text" size="10" />
-		<input name="rep2" type="hidden" value="<?php echo $plxShow->capchaR() ?>" />
+		<input name="rep2" type="hidden" placeholder="" value="<?php echo $plxShow->capchaR() ?>" />
 		<?php endif; ?>
 		<p>
 			<input type="submit" name="submit" value="<?php $plxPlugin->lang('L_FORM_BTN_SEND') ?>" />

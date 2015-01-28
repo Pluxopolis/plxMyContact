@@ -37,34 +37,33 @@ if(!empty($_POST)) {
 
 ?>
 
-<div id="form_contact">
+<div id='form_contact'>
 	<?php if($error): ?>
-	<p class="contact_error"><?php echo $error ?></p>
+	<p class='contact_error'><?php echo $error ?></p>
 	<?php endif; ?>
 	<?php if($success): ?>
-	<p class="contact_success"><?php echo plxUtils::strCheck($success) ?></p>
+	<p class='contact_success'><?php echo plxUtils::strCheck($success) ?></p>
 	<?php else: ?>
 	<?php if($plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang)): ?>
-	<div class="text_contact">
+	<div class='text_contact'>
 	<?php echo $plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang) ?>
 	</div>
 	<?php endif; ?>
-	<form action="#form" method="post">
+	<form action='#form_contact' method='post'>
 		<fieldset>
-		<p><label for="name"><?php $plxPlugin->lang('L_FORM_NAME') ?>&nbsp;:</label></p>
-		<input id="name" name="name" type="text" size="30" value="<?php echo plxUtils::strCheck($name) ?>" maxlength="30" />
-		<p><label for="mail"><?php $plxPlugin->lang('L_FORM_MAIL') ?>&nbsp;:</label></p>
-		<input id="mail" name="mail" type="text" size="30" value="<?php echo plxUtils::strCheck($mail) ?>" />
-		<p><label for="message"><?php $plxPlugin->lang('L_FORM_CONTENT') ?>&nbsp;:</label></p>
-		<textarea id="message" name="content" cols="60" rows="12"><?php echo plxUtils::strCheck($content) ?></textarea>
+		<p>
+			<input id='name' name='name' type='text' size='30' value='<?php echo plxUtils::strCheck($name) ?>' maxlength='30' required="required" placeholder="<?php $plxPlugin->lang('L_FORM_NAME') ?>" />
+			<input id="mail" name="mail" type="email" required="required" size="30" value="<?php echo plxUtils::strCheck($mail) ?>" placeholder="<?php $plxPlugin->lang('L_FORM_MAIL') ?>" />
+		</p>
+		<textarea id='message' name='content' cols='60' rows='12' required="required" placeholder="<?php $plxPlugin->lang('L_FORM_CONTENT') ?>"><?php echo plxUtils::strCheck($content) ?></textarea>
 		<?php if($captcha): ?>
-		<p><label for="id_rep"><strong><?php $plxPlugin->lang('L_FORM_ANTISPAM') ?></strong>&nbsp;:</label></p>
-		<?php echo $plxShow->capchaQ() ?>&nbsp;:&nbsp;<input id="id_rep" name="rep" type="text" size="10" />
-		<input name="rep2" type="hidden" value="<?php echo $plxShow->capchaR() ?>" />
+		<p><label for='id_rep'><strong><?php $plxPlugin->lang('L_FORM_ANTISPAM') ?></strong>&nbsp;:</label></p>
+		<?php echo $plxShow->capchaQ() ?>&nbsp;:&nbsp;<input id='id_rep' name='rep' type='text' size='10' required="required" />
+		<input name='rep2' type='hidden' value='<?php echo $plxShow->capchaR() ?>' />
 		<?php endif; ?>
 		<p>
-			<input type="submit" name="submit" value="<?php $plxPlugin->lang('L_FORM_BTN_SEND') ?>" />
-			<input type="reset" name="reset" value="<?php $plxPlugin->lang('L_FORM_BTN_RESET') ?>" />
+			<input type='submit' name='submit' value='<?php $plxPlugin->lang('L_FORM_BTN_SEND') ?>' />
+			<input type='reset' name='reset' value='<?php $plxPlugin->lang('L_FORM_BTN_RESET') ?>' />
 		</p>
 		</fieldset>
 	</form>

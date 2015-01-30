@@ -58,7 +58,7 @@ if(!empty($_POST)) {
 		<textarea id='message' name='content' cols='60' rows='12' required="required" placeholder="<?php $plxPlugin->lang('L_FORM_CONTENT') ?>"><?php echo plxUtils::strCheck($content) ?></textarea>
 		<?php if($captcha): ?>
 		<p><label for='id_rep'><strong><?php $plxPlugin->lang('L_FORM_ANTISPAM') ?></strong>&nbsp;:</label></p>
-		<?php echo $plxShow->capchaQ() ?>&nbsp;:&nbsp;<input id='id_rep' name='rep' type='text' size='10' required="required" />
+		<?php echo $plxShow->capchaQ() ?>&nbsp;:&nbsp;<input id='id_rep' name='rep' type='text' size='10' required="required" autocomplete="off" />
 		<input name='rep2' type='hidden' value='<?php echo $plxShow->capchaR() ?>' />
 		<?php endif; ?>
 		<p>

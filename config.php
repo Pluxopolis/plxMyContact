@@ -17,13 +17,13 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('email', $_POST['email'], 'string');
 	$plxPlugin->setParam('email_cc', $_POST['email_cc'], 'string');
 	$plxPlugin->setParam('email_bcc', $_POST['email_bcc'], 'string');
-	$plxPlugin->setParam('subject', $_POST['subject'], 'string');	
+	$plxPlugin->setParam('subject', $_POST['subject'], 'string');
 	$plxPlugin->setParam('template', $_POST['template'], 'string');
 	$plxPlugin->setParam('captcha', $_POST['captcha'], 'numeric');
-	$plxPlugin->setParam('url', $_POST['url'], 'string');	
+	$plxPlugin->setParam('url', $_POST['url'], 'string');
 	foreach($aLangs as $lang) {
-		$plxPlugin->setParam('mnuName_'.$lang, $_POST['mnuName_'.$lang], 'string');	
-		$plxPlugin->setParam('mnuText_'.$lang, $_POST['mnuText_'.$lang], 'string');	
+		$plxPlugin->setParam('mnuName_'.$lang, $_POST['mnuName_'.$lang], 'string');
+		$plxPlugin->setParam('mnuText_'.$lang, $_POST['mnuText_'.$lang], 'string');
 		$plxPlugin->setParam('thankyou_'.$lang, $_POST['thankyou_'.$lang], 'string');
 	}
 	$plxPlugin->saveParams();
@@ -53,14 +53,13 @@ $var['captcha'] = $plxPlugin->getParam('captcha')=='' ? '1' : $plxPlugin->getPar
 $var['url'] = $plxPlugin->getParam('url')=='' ? 'contact' : $plxPlugin->getParam('url');
 
 # On récupère les templates des pages statiques
-$files = plxGlob::getInstance(PLX_ROOT.'themes/'.$plxAdmin->aConf['style']);
+$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
 	foreach($array as $k=>$v)
 		$aTemplates[$v] = $v;
 }
 ?>
 
-<h2><?php echo $plxPlugin->getInfo('title') ?></h2>
 <?php
 if(function_exists('mail')) {
 	echo '<p style="color:green"><strong>'.$plxPlugin->getLang('L_MAIL_AVAILABLE').'</strong></p>';
@@ -68,8 +67,6 @@ if(function_exists('mail')) {
 	echo '<p style="color:#ff0000"><strong>'.$plxPlugin->getLang('L_MAIL_NOT_AVAILABLE').'</strong></p>';
 }
 ?>
-<br />
-
 <div id="tabContainer">
 <form id="form_plxmycontact" action="parametres_plugin.php?p=plxMyContact" method="post">
 	<div class="tabs">
@@ -86,7 +83,7 @@ if(function_exists('mail')) {
 		<div class="tabpage" id="tabpage_main">
 			<fieldset>
 				<p class="field"><label for="id_url"><?php $plxPlugin->lang('L_URL') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('url',$var['url'],'text','20-255') ?>			
+				<?php plxUtils::printInput('url',$var['url'],'text','20-255') ?>
 				<p class="field"><label for="id_mnuDisplay"><?php echo $plxPlugin->lang('L_MENU_DISPLAY') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('mnuDisplay',array('1'=>L_YES,'0'=>L_NO),$var['mnuDisplay']); ?>
 				<p class="field"><label for="id_mnuPos"><?php $plxPlugin->lang('L_MENU_POS') ?>&nbsp;:</label></p>
@@ -98,7 +95,7 @@ if(function_exists('mail')) {
 				<p class="field"><label for="id_email_bcc"><?php $plxPlugin->lang('L_EMAIL_BCC') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('email_bcc',$var['email_bcc'],'text','50-120') ?>
 				<p class="field"><label for="id_subject"><?php $plxPlugin->lang('L_EMAIL_SUBJECT') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('subject',$var['subject'],'text','100-120') ?>				
+				<?php plxUtils::printInput('subject',$var['subject'],'text','100-120') ?>
 				<p class="field"><label for="id_captcha"><?php echo $plxPlugin->lang('L_CAPTCHA') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('captcha',array('1'=>L_YES,'0'=>L_NO),$var['captcha']); ?>
 				<p class="field"><label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label></p>
@@ -113,13 +110,13 @@ if(function_exists('mail')) {
 				<p class="field"><label for="id_mnuText_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_TEXT') ?>&nbsp;:</label></p>
 				<?php plxUtils::printArea('mnuText_'.$lang,$var[$lang]['mnuText'],'80','6') ?>
 				<p class="field"><label for="id_thankyou_<?php echo $lang ?>"><?php $plxPlugin->lang('L_THANKYOU_MESSAGE') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('thankyou_'.$lang,$var[$lang]['thankyou'],'text','100-120') ?>				
+				<?php plxUtils::printInput('thankyou_'.$lang,$var[$lang]['thankyou'],'text','100-120') ?>
 			</fieldset>
 		</div>
 		<?php endforeach; ?>
 	</div>
 	<fieldset>
-		<p>
+		<p class="in-action-bar">
 			<?php echo plxToken::getTokenPostMethod() ?>
 			<input type="submit" name="submit" value="<?php $plxPlugin->lang('L_SAVE') ?>" />
 		</p>

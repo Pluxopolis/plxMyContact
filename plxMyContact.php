@@ -21,7 +21,7 @@ class plxMyContact extends plxPlugin {
 		$this->setConfigProfil(PROFIL_ADMIN);
 
 		# déclaration des hooks
-		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');		
+		$this->addHook('AdminTopEndHead', 'AdminTopEndHead');
 		$this->addHook('AdminTopBottom', 'AdminTopBottom');
 		if(plxUtils::checkMail($this->getParam('email'))) {
 			$this->addHook('plxMotorPreChauffageBegin', 'plxMotorPreChauffageBegin');
@@ -30,15 +30,15 @@ class plxMyContact extends plxPlugin {
 			$this->addHook('plxShowPageTitle', 'plxShowPageTitle');
 			$this->addHook('SitemapStatics', 'SitemapStatics');
 		}
-		
+
 	}
 
-	public function AdminTopEndHead() {	
+	public function AdminTopEndHead() {
 		if(basename($_SERVER['SCRIPT_NAME'])=='parametres_plugin.php') {
 			echo '<link href="'.PLX_PLUGINS.'plxMyContact/tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
 		}
-	}	
-	
+	}
+
 	/**
 	 * Méthode de traitement du hook plxShowConstruct
 	 *
@@ -110,7 +110,7 @@ class plxMyContact extends plxPlugin {
 	 **/
 	public function plxShowPageTitle() {
 		echo '<?php
-			if($this->plxMotor->mode == "contact") {
+			if($this->plxMotor->mode == "'.$this->getPAram('url').'") {
 				echo plxUtils::strCheck($this->plxMotor->aConf["title"]." - '.$this->getParam('mnuName_'.$this->default_lang).'");
 				return true;
 			}

@@ -1,7 +1,7 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
 <?php
 
-# récuperation d'une instance de plxShow
+# récupération d'une instance de plxShow
 $plxShow = plxShow::getInstance();
 $plxShow->plxMotor->plxCapcha = new plxCapcha();
 $plxPlugin = $plxShow->plxMotor->plxPlugins->getInstance('plxMyContact');
@@ -12,16 +12,22 @@ $success=false;
 $captcha = $plxPlugin->getParam('captcha')=='' ? '1' : $plxPlugin->getParam('captcha');
 
 if(!empty($_POST)) {
+
 	$name=plxUtils::unSlash($_POST['name']);
 	$mail=plxUtils::unSlash($_POST['mail']);
 	$content=plxUtils::unSlash($_POST['content']);
+
+	# pour compatibilité avec le plugin plxMyCapchaImage
+	if(strlen($_SESSION['capcha'])<=10)
+		$_SESSION['capcha']=sha1($_SESSION['capcha']);
+
 	if(trim($name)=='')
 		$error = $plxPlugin->getLang('L_ERR_NAME');
 	elseif(!plxUtils::checkMail($mail))
 		$error = $plxPlugin->getLang('L_ERR_EMAIL');
 	elseif(trim($content)=='')
 		$error = $plxPlugin->getLang('L_ERR_CONTENT');
-	elseif($captcha AND $_POST['rep2'] != sha1($_POST['rep']))
+	elseif($captcha != 0 AND $_SESSION['capcha'] != sha1($_POST['rep']))
 		$error = $plxPlugin->getLang('L_ERR_ANTISPAM');
 	if(!$error) {
 		if(plxUtils::sendMail($name,$mail,$plxPlugin->getParam('email'),$plxPlugin->getParam('subject'),$content,'text',$plxPlugin->getParam('email_cc'),$plxPlugin->getParam('email_bcc')))
@@ -58,9 +64,11 @@ if(!empty($_POST)) {
 		<p><label for="message"><?php $plxPlugin->lang('L_FORM_CONTENT') ?>&nbsp;:</label></p>
 		<textarea id="message" name="content" cols="60" rows="12"><?php echo plxUtils::strCheck($content) ?></textarea>
 		<?php if($captcha): ?>
-		<p><label for="id_rep"><strong><?php $plxPlugin->lang('L_FORM_ANTISPAM') ?></strong>&nbsp;:</label></p>
-		<?php echo $plxShow->capchaQ() ?>&nbsp;:&nbsp;<input id="id_rep" name="rep" type="text" size="10" />
-		<input name="rep2" type="hidden" value="<?php echo $plxShow->capchaR() ?>" />
+		<p>
+		<label for="id_rep"><strong><?php $plxPlugin->lang('L_FORM_ANTISPAM') ?></strong></label>
+		<?php $plxShow->capchaQ(); ?>
+		<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" />
+		</p>
 		<?php endif; ?>
 		<p>
 			<input type="submit" name="submit" value="<?php $plxPlugin->lang('L_FORM_BTN_SEND') ?>" />

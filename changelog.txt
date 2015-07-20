@@ -1,4 +1,7 @@
-﻿## Version 1.6.1 (13/05/2015) ##
+﻿## Version 1.7 (20/07/2015) ##
+[+] Compatibilité avec le plugin plxMyCapchaImage
+
+## Version 1.6.1 (13/05/2015) ##
 [+] Compatibilité PluXml 5.4
 BUG fix #11: Dossier themes codé en dur
 BUG fix #10: Paramètre de l'URL avec une extension : title absent

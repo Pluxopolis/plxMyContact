@@ -1,4 +1,7 @@
-﻿## Version 1.7 (20/07/2015) ##
+﻿## Version 1.7.1 (12/01/2016) ##
+BUG Erreur avec des apostrophes dans le titre du menu
+
+## Version 1.7 (20/07/2015) ##
 [+] Compatibilité avec le plugin plxMyCapchaImage
 
 ## Version 1.6.1 (13/05/2015) ##

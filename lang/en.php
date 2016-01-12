@@ -22,6 +22,8 @@ $LANG = array(
 'L_URL'						=> 'Url parameter',
 'L_SAVE'					=> 'Save',
 'L_COMMA'					=> '* seperated by comma',
+'L_LABEL'					=> 'Display field label',
+'L_PLACEHOLDER'				=> 'Display field placeholder',
 
 'L_DEFAULT_MENU_NAME'		=> 'Contact',
 'L_DEFAULT_OBJECT'			=> '## Pluxml ## new contact from your website',

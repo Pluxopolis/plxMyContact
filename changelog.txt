@@ -1,4 +1,7 @@
 ﻿## Version 1.7.1 (12/01/2016) ##
+[+] ajout attribut autocomplete="off" sur le champ antispam (contribution alexandre-lg)
+[+] Configuration de l'affichage des libellés des champs
+[+] Configuration de l'affichage des libellés dans les champs (placeholder)
 BUG Erreur avec des apostrophes dans le titre du menu
 
 ## Version 1.7 (20/07/2015) ##

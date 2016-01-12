@@ -21,6 +21,8 @@ $LANG = array(
 'L_CAPTCHA'						=> 'Activar anti spam-capcha',
 'L_SAVE'						=> 'Guardar',
 'L_COMMA'						=> '* seperado por coma',
+'L_LABEL'						=> 'Etiqueta de campo de visualización',
+'L_PLACEHOLDER'					=> 'Campo de visualización de marcador de posición',
 
 'L_DEFAULT_MENU_NAME'			=> 'Contacto',
 'L_DEFAULT_OBJECT'				=> '## Pluxml ## nuevo contacto desde su website',

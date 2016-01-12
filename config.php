@@ -21,6 +21,8 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('template', $_POST['template'], 'string');
 	$plxPlugin->setParam('captcha', $_POST['captcha'], 'numeric');
 	$plxPlugin->setParam('url', $_POST['url'], 'string');
+	$plxPlugin->setParam('label', $_POST['label'], 'numeric');
+	$plxPlugin->setParam('placeholder', $_POST['placeholder'], 'numeric');
 	foreach($aLangs as $lang) {
 		$plxPlugin->setParam('mnuName_'.$lang, $_POST['mnuName_'.$lang], 'string');
 		$plxPlugin->setParam('mnuText_'.$lang, $_POST['mnuText_'.$lang], 'string');
@@ -51,7 +53,8 @@ $var['email_bcc'] = $plxPlugin->getParam('email_bcc')=='' ? '' : $plxPlugin->get
 $var['template'] = $plxPlugin->getParam('template')=='' ? 'static.php' : $plxPlugin->getParam('template');
 $var['captcha'] = $plxPlugin->getParam('captcha')=='' ? '1' : $plxPlugin->getParam('captcha');
 $var['url'] = $plxPlugin->getParam('url')=='' ? 'contact' : $plxPlugin->getParam('url');
-
+$var['label'] =  $plxPlugin->getParam('label')=='' ? 1 : $plxPlugin->getParam('label');
+$var['placeholder'] =  $plxPlugin->getParam('placeholder')=='' ? 0 : $plxPlugin->getParam('placeholder');
 # On récupère les templates des pages statiques
 $files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
 if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
@@ -88,6 +91,10 @@ if(function_exists('mail')) {
 				<?php plxUtils::printSelect('mnuDisplay',array('1'=>L_YES,'0'=>L_NO),$var['mnuDisplay']); ?>
 				<p class="field"><label for="id_mnuPos"><?php $plxPlugin->lang('L_MENU_POS') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('mnuPos',$var['mnuPos'],'text','2-5') ?>
+				<p class="field"><label for="id_label"><?php $plxPlugin->lang('L_LABEL') ?>&nbsp;:</label></p>
+				<?php plxUtils::printSelect('label',array('1'=>L_YES,'0'=>L_NO),$var['label']); ?>
+				<p class="field"><label for="id_placeholder"><?php $plxPlugin->lang('L_PLACEHOLDER') ?>&nbsp;:</label></p>
+				<?php plxUtils::printSelect('placeholder',array('1'=>L_YES,'0'=>L_NO),$var['placeholder']); ?>
 				<p class="field"><label for="id_email"><?php $plxPlugin->lang('L_EMAIL') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('email',$var['email'],'text','50-120') ?>
 				<p class="field"><label for="id_email_cc"><?php $plxPlugin->lang('L_EMAIL_CC') ?>&nbsp;:</label></p>

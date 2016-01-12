@@ -22,6 +22,8 @@ $LANG = array(
 'L_URL'						=> 'Paramètre de l\'url',
 'L_SAVE'					=> 'Enregistrer',
 'L_COMMA'					=> '* séparer les adresses emails des destinataires par une virgule',
+'L_LABEL'					=> 'Afficher les libellés des champs du formulaire de contact',
+'L_PLACEHOLDER'				=> 'Afficher les libellés dans les champs du formulaire de contact (placeholder)',
 
 'L_DEFAULT_MENU_NAME'		=> 'Contact',
 'L_DEFAULT_OBJECT'			=> '## Pluxml ## nouveau contact depuis votre site internet',

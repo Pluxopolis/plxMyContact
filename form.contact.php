@@ -57,17 +57,32 @@ if(!empty($_POST)) {
 	<?php endif; ?>
 	<form action="#form" method="post">
 		<fieldset>
-		<p><label for="name"><?php $plxPlugin->lang('L_FORM_NAME') ?>&nbsp;:</label></p>
-		<input id="name" name="name" type="text" size="30" value="<?php echo plxUtils::strCheck($name) ?>" maxlength="30" />
-		<p><label for="mail"><?php $plxPlugin->lang('L_FORM_MAIL') ?>&nbsp;:</label></p>
-		<input id="mail" name="mail" type="text" size="30" value="<?php echo plxUtils::strCheck($mail) ?>" />
-		<p><label for="message"><?php $plxPlugin->lang('L_FORM_CONTENT') ?>&nbsp;:</label></p>
-		<textarea id="message" name="content" cols="60" rows="12"><?php echo plxUtils::strCheck($content) ?></textarea>
+		<p>
+			<?php if($plxPlugin->getParam('label')) : ?>
+			<label for="name"><?php $plxPlugin->lang('L_FORM_NAME') ?>&nbsp;:</label>
+			<?php endif; ?>
+			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.plxUtils::strCheck($plxPlugin->getLang('L_FORM_NAME')).'" ' : '') ?>
+			<input <?php echo $placeholder ?>id="name" name="name" type="text" size="30" value="<?php echo plxUtils::strCheck($name) ?>" maxlength="30" />
+		</p>
+		<p>
+			<?php if($plxPlugin->getParam('label')) : ?>
+			<label for="mail"><?php $plxPlugin->lang('L_FORM_MAIL') ?>&nbsp;:</label>
+			<?php endif; ?>
+			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.plxUtils::strCheck($plxPlugin->getLang('L_FORM_MAIL')).'" ' : '') ?>
+			<input <?php echo $placeholder ?>id="mail" name="mail" type="text" size="30" value="<?php echo plxUtils::strCheck($mail) ?>" />
+		</p>
+		<p>
+			<?php if($plxPlugin->getParam('label')) : ?>
+			<label for="message"><?php $plxPlugin->lang('L_FORM_CONTENT') ?>&nbsp;:</label>
+			<?php endif; ?>
+			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.plxUtils::strCheck($plxPlugin->getLang('L_FORM_CONTENT')).'" ' : '') ?>
+			<textarea <?php echo $placeholder ?>id="message" name="content" cols="60" rows="12"><?php echo plxUtils::strCheck($content) ?></textarea>
+		</p>
 		<?php if($captcha): ?>
 		<p>
 		<label for="id_rep"><strong><?php $plxPlugin->lang('L_FORM_ANTISPAM') ?></strong></label>
 		<?php $plxShow->capchaQ(); ?>
-		<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" />
+		<input id="id_rep" name="rep" type="text" size="2" maxlength="1" style="width: auto; display: inline;" autocomplete="off" />
 		</p>
 		<?php endif; ?>
 		<p>

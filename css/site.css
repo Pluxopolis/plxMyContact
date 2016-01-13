@@ -20,3 +20,8 @@
 
 .contact_success {
 }
+
+.menu.expanded li a.active {
+    background-color: #258fd6;
+    color: #fff;
+}

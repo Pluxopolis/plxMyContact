@@ -51,9 +51,9 @@ if(!empty($_POST)) {
 	<p class="contact_success"><?php echo plxUtils::strCheck($success) ?></p>
 	<?php else: ?>
 	<?php if($plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang)): ?>
-	<div class="text_contact">
+	<p class="text_contact">
 	<?php echo $plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang) ?>
-	</div>
+	</p>
 	<?php endif; ?>
 	<form action="#form" method="post">
 		<fieldset>

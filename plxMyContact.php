@@ -109,9 +109,10 @@ class plxMyContact extends plxPlugin {
 	 * @author	Stephane F
 	 **/
 	public function plxShowPageTitle() {
+
 		echo '<?php
-			if($this->plxMotor->mode == "'.$this->getPAram('url').'") {
-				echo "'.$this->getParam('mnuName_'.$this->default_lang).'" - "'.plxUtils::strCheck($this->plxMotor->aConf["title"]).'";
+			if($this->plxMotor->mode == "'.$this->getParam('url').'") {
+				echo "'.$this->getParam('mnuName_'.$this->default_lang).' - ".plxUtils::strCheck($this->plxMotor->aConf["title"]);
 				return true;
 			}
 		?>';

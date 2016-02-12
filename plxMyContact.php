@@ -111,7 +111,7 @@ class plxMyContact extends plxPlugin {
 	public function plxShowPageTitle() {
 		echo '<?php
 			if($this->plxMotor->mode == "'.$this->getPAram('url').'") {
-				echo plxUtils::strCheck($this->plxMotor->aConf["title"]." - '.$this->getParam('mnuName_'.$this->default_lang).'");
+				echo "'.$this->getParam('mnuName_'.$this->default_lang).'" - "'.plxUtils::strCheck($this->plxMotor->aConf["title"]).'";
 				return true;
 			}
 		?>';

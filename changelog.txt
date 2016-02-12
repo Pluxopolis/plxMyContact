@@ -1,5 +1,7 @@
-﻿## Version 1.xx (xx/xx/2016) ##
+﻿## Version 1.7.2 (12/02/2016) ##
 [+] Ajout traduction occitan (contriution Rubén)
+[+] Modification du titre de la page pour avoir Contact / Titre du site (amélioration SEO)
+[+] fix #14: application de la méthode plxUtils::title2url sur l'url de la page contact pour un avoir un bon format
 
 ## Version 1.7.1 (13/01/2016) ##
 [+] ajout attribut autocomplete="off" sur le champ antispam (contribution alexandre-lg)

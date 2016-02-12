@@ -6,7 +6,7 @@ plxToken::validateFormToken($_POST);
 
 if(defined('PLX_MYMULTILINGUE')) {
 	$array =  explode(',', PLX_MYMULTILINGUE);
-	$aLangs = array_intersect($array, array('fr', 'en', 'es'));
+	$aLangs = array_intersect($array, array('fr', 'en', 'es', 'oc'));
 } else {
 	$aLangs = array($plxPlugin->default_lang);
 }
@@ -20,7 +20,7 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('subject', $_POST['subject'], 'string');
 	$plxPlugin->setParam('template', $_POST['template'], 'string');
 	$plxPlugin->setParam('captcha', $_POST['captcha'], 'numeric');
-	$plxPlugin->setParam('url', $_POST['url'], 'string');
+	$plxPlugin->setParam('url', plxUtils::title2url($_POST['url']), 'string');
 	$plxPlugin->setParam('label', $_POST['label'], 'numeric');
 	$plxPlugin->setParam('placeholder', $_POST['placeholder'], 'numeric');
 	foreach($aLangs as $lang) {

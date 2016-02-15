@@ -97,7 +97,7 @@ class plxMyContact extends plxPlugin {
 		# ajout du menu pour accèder à la page de contact
 		if($this->getParam('mnuDisplay')) {
 			echo "<?php \$class = \$this->plxMotor->mode=='".$this->getParam('url')."'?'active':'noactive'; ?>";
-			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li><a class=\"static '.\$class.'\" href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\" title=\"".addslashes($this->getParam('mnuName_'.$this->default_lang))."\">".addslashes($this->getParam('mnuName_'.$this->default_lang))."</a></li>'); ?>";
+			echo "<?php array_splice(\$menus, ".($this->getParam('mnuPos')-1).", 0, '<li class=\"static '.\$class.'\"><a href=\"'.\$this->plxMotor->urlRewrite('?".$this->getParam('url')."').'\" title=\"".addslashes($this->getParam('mnuName_'.$this->default_lang))."\">".addslashes($this->getParam('mnuName_'.$this->default_lang))."</a></li>'); ?>";
 		}
 
 	}

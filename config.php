@@ -104,9 +104,9 @@ if(function_exists('mail')) {
 				<p class="field"><label for="id_email_bcc"><?php $plxPlugin->lang('L_EMAIL_BCC') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('email_bcc',$var['email_bcc'],'text','50-120') ?>
 				<p class="field"><label for="id_subject"><?php $plxPlugin->lang('L_EMAIL_SUBJECT') ?>&nbsp;:</label></p>
-				<?php plxUtils::printSelect('subject',$var['subject'],'text','100-120') ?>
+				<?php plxUtils::printInput('subject',$var['subject'],'text','100-120') ?>
 				<p class="field"><label for="id_append_subject"><?php $plxPlugin->lang('L_APPEND_EMAIL_SUBJECT') ?>&nbsp;:</label></p>
-				<?php plxUtils::printInput('append_subject',array('1'=>L_YES,'0'=>L_NO),$var['append_subject']); ?>
+				<?php plxUtils::printSelect('append_subject',array('1'=>L_YES,'0'=>L_NO),$var['append_subject']); ?>
 				<p class="field"><label for="id_captcha"><?php echo $plxPlugin->lang('L_CAPTCHA') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('captcha',array('1'=>L_YES,'0'=>L_NO),$var['captcha']); ?>
 				<p class="field"><label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label></p>

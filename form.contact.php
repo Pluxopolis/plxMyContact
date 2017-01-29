@@ -15,6 +15,14 @@ if(!empty($_POST)) {
 
 	$name=plxUtils::unSlash($_POST['name']);
 	$mail=plxUtils::unSlash($_POST['mail']);
+	if($plxPlugin->getParam('append_subject')) {
+    	$subject = plxUtils::unSlash($_POST['subject']);
+    	$subjectspacer=' ' ;
+    } else {
+        $subject = '';
+        $subjectspacer='' ;
+    }
+	
 	$content=plxUtils::unSlash($_POST['content']);
 
 	# pour compatibilité avec le plugin plxMyCapchaImage
@@ -30,7 +38,7 @@ if(!empty($_POST)) {
 	elseif($captcha != 0 AND $_SESSION['capcha'] != sha1($_POST['rep']))
 		$error = $plxPlugin->getLang('L_ERR_ANTISPAM');
 	if(!$error) {
-		if(plxUtils::sendMail($name,$mail,$plxPlugin->getParam('email'),$plxPlugin->getParam('subject'),$content,'text',$plxPlugin->getParam('email_cc'),$plxPlugin->getParam('email_bcc')))
+		if(plxUtils::sendMail($name,$mail,$plxPlugin->getParam('email'),plxUtils::unSlash($plxPlugin->getParam('subject')).$subjectspacer.$subject,$content,'text',$plxPlugin->getParam('email_cc'),$plxPlugin->getParam('email_bcc')))
 			$success = $plxPlugin->getParam('thankyou_'.$plxPlugin->default_lang);
 		else
 			$error = $plxPlugin->getLang('L_ERR_SENDMAIL');
@@ -38,6 +46,7 @@ if(!empty($_POST)) {
 } else {
 	$name='';
 	$mail='';
+    $subject = '';
 	$content='';
 }
 
@@ -71,6 +80,15 @@ if(!empty($_POST)) {
 			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.plxUtils::strCheck($plxPlugin->getLang('L_FORM_MAIL')).'" ' : '') ?>
 			<input <?php echo $placeholder ?>id="mail" name="mail" type="text" size="30" value="<?php echo plxUtils::strCheck($mail) ?>" />
 		</p>
+		<?php if($plxPlugin->getParam('append_subject')) : ?>
+		<p>
+			<?php if($plxPlugin->getParam('label')) : ?>
+			<label for="subject"><?php $plxPlugin->lang('L_FORM_SUBJECT') ?>&nbsp;:</label>
+			<?php endif; ?>
+			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.$plxPlugin->lang('L_FORM_SUBJECT').'" ' : '') ?>
+			<input <?php echo $placeholder ?>id="subject" name="subject" type="text" size="30" value="<?php echo plxUtils::strCheck($subject) ?>" maxlength="30" />		
+		</p>
+		<?php endif; ?>
 		<p>
 			<?php if($plxPlugin->getParam('label')) : ?>
 			<label for="message"><?php $plxPlugin->lang('L_FORM_CONTENT') ?>&nbsp;:</label>

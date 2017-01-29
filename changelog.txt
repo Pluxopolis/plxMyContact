@@ -1,4 +1,8 @@
-﻿## Version 1.7.2 (12/02/2016) ##
+﻿## Version 1.7.3 ##
+[+] Ajout d'un champ "objet" (désactivable) dans la page contact
+BUG Traduction occitane des nouveaux labels à ajouter/vérifier
+
+## Version 1.7.2 (12/02/2016) ##
 [+] Ajout traduction occitan (contriution Rubén)
 [+] Modification du titre de la page pour avoir Contact / Titre du site (amélioration SEO)
 [+] fix #14: application de la méthode plxUtils::title2url sur l'url de la page contact pour un avoir un bon format

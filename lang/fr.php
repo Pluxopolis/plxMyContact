@@ -16,6 +16,7 @@ $LANG = array(
 'L_EMAIL_CC'	   			=> 'Destinataire(s) en copie du mail *',
 'L_EMAIL_BCC'	   			=> 'Destinataire(s) en copie cachée du mail *',
 'L_EMAIL_SUBJECT'  			=> 'Objet du mail',
+'L_APPEND_EMAIL_SUBJECT'    => 'Permettre à l\'utilisateur d\'ajouter son propre objet à celui ci-dessus',
 'L_THANKYOU_MESSAGE'		=> 'Message de remerciement',
 'L_TEMPLATE'				=> 'Template',
 'L_CAPTCHA'					=> 'Activer le captcha anti-spam',
@@ -41,6 +42,7 @@ $LANG = array(
 
 'L_FORM_NAME'				=> 'Votre nom',
 'L_FORM_MAIL'				=> 'Votre adresse email',
+'L_FORM_SUBJECT'			=> 'Objet de votre message',
 'L_FORM_CONTENT'			=> 'Contenu de votre message',
 'L_FORM_ANTISPAM'			=> 'Vérification anti-spam',
 'L_FORM_BTN_SEND'			=> 'Envoyer',

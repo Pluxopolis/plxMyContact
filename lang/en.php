@@ -16,6 +16,7 @@ $LANG = array(
 'L_EMAIL_CC'	   			=> 'Carbon copy of the email recipients *',
 'L_EMAIL_BCC'	   			=> 'Blind carbon copy of the email recipients *',
 'L_EMAIL_SUBJECT'  			=> 'E-mail subject',
+'L_APPEND_EMAIL_SUBJECT'    => 'Allow user to append his own subject to the one above',
 'L_THANKYOU_MESSAGE'		=> 'Thank you message',
 'L_TEMPLATE'				=> 'Template',
 'L_CAPTCHA'					=> 'Enable anti spam-capcha',
@@ -40,6 +41,7 @@ $LANG = array(
 
 'L_FORM_NAME'				=> 'Your name',
 'L_FORM_MAIL'				=> 'Your e-mail address',
+'L_FORM_SUBJECT'			=> 'Subject of your message',
 'L_FORM_CONTENT'			=> 'Content of your message',
 'L_FORM_ANTISPAM'			=> 'Anti-spam verification',
 'L_FORM_BTN_SEND'			=> 'Send',

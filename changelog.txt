@@ -1,6 +1,5 @@
-﻿## Version 1.7.3 ##
-[+] Ajout d'un champ "objet" (désactivable) dans la page contact
-BUG Traduction occitane des nouveaux labels à ajouter/vérifier
+﻿## Version 1.7.3 (31/01/2017) ##
+[+] Ajout d'un champ "objet" (désactivable) dans la page contact (contribution asmodai27)
 
 ## Version 1.7.2 (12/02/2016) ##
 [+] Ajout traduction occitan (contriution Rubén)

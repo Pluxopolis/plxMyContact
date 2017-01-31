@@ -1,5 +1,6 @@
 ﻿## Version 1.7.3 (31/01/2017) ##
 [+] Ajout d'un champ "objet" (désactivable) dans la page contact (contribution asmodai27)
+BUG Classe css active non appliquée (contribution EdzeronK)
 
 ## Version 1.7.2 (12/02/2016) ##
 [+] Ajout traduction occitan (contriution Rubén)

@@ -16,6 +16,7 @@ $LANG = array(
 'L_EMAIL_CC'					=> 'Enviar una copia a los siguienste destinatarios (email) *',
 'L_EMAIL_BCC'					=> 'Enviar una copia oculta a los siguientes destinatarios (email) *',
 'L_EMAIL_SUBJECT'				=> 'Asunto del E-mail',
+'L_APPEND_EMAIL_SUBJECT'        => 'Dar el usario permiso a adjuntar su propio asunto al de arriba',
 'L_THANKYOU_MESSAGE'			=> 'Mensaje de gracias',
 'L_TEMPLATE'					=> 'Plantilla',
 'L_CAPTCHA'						=> 'Activar anti spam-capcha',
@@ -39,6 +40,7 @@ $LANG = array(
 
 'L_FORM_NAME'					=> 'Nombre',
 'L_FORM_MAIL'					=> 'Dirección de e-mail',
+'L_FORM_SUBJECT'    			=> 'Asunto del mensaje',
 'L_FORM_CONTENT'				=> 'Mensaje',
 'L_FORM_ANTISPAM'				=> 'Verificación Anti-spam',
 'L_FORM_BTN_SEND'				=> 'Enviar',

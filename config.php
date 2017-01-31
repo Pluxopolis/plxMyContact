@@ -18,6 +18,7 @@ if(!empty($_POST)) {
 	$plxPlugin->setParam('email_cc', $_POST['email_cc'], 'string');
 	$plxPlugin->setParam('email_bcc', $_POST['email_bcc'], 'string');
 	$plxPlugin->setParam('subject', $_POST['subject'], 'string');
+	$plxPlugin->setParam('append_subject', $_POST['append_subject'], 'numeric');
 	$plxPlugin->setParam('template', $_POST['template'], 'string');
 	$plxPlugin->setParam('captcha', $_POST['captcha'], 'numeric');
 	$plxPlugin->setParam('url', plxUtils::title2url($_POST['url']), 'string');
@@ -47,6 +48,7 @@ foreach($aLangs as $lang) {
 $var['mnuDisplay'] =  $plxPlugin->getParam('mnuDisplay')=='' ? 1 : $plxPlugin->getParam('mnuDisplay');
 $var['mnuPos'] =  $plxPlugin->getParam('mnuPos')=='' ? 2 : $plxPlugin->getParam('mnuPos');
 $var['subject'] = $plxPlugin->getParam('subject')=='' ? $plxPlugin->getLang('L_DEFAULT_OBJECT') : $plxPlugin->getParam('subject');
+$var['append_subject'] = $plxPlugin->getParam('append_subject')=='' ? 0 : $plxPlugin->getParam('append_subject');
 $var['email'] = $plxPlugin->getParam('email')=='' ? '' : $plxPlugin->getParam('email');
 $var['email_cc'] = $plxPlugin->getParam('email_cc')=='' ? '' : $plxPlugin->getParam('email_cc');
 $var['email_bcc'] = $plxPlugin->getParam('email_bcc')=='' ? '' : $plxPlugin->getParam('email_bcc');
@@ -103,6 +105,8 @@ if(function_exists('mail')) {
 				<?php plxUtils::printInput('email_bcc',$var['email_bcc'],'text','50-120') ?>
 				<p class="field"><label for="id_subject"><?php $plxPlugin->lang('L_EMAIL_SUBJECT') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('subject',$var['subject'],'text','100-120') ?>
+				<p class="field"><label for="id_append_subject"><?php $plxPlugin->lang('L_APPEND_EMAIL_SUBJECT') ?>&nbsp;:</label></p>
+				<?php plxUtils::printSelect('append_subject',array('1'=>L_YES,'0'=>L_NO),$var['append_subject']); ?>
 				<p class="field"><label for="id_captcha"><?php echo $plxPlugin->lang('L_CAPTCHA') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('captcha',array('1'=>L_YES,'0'=>L_NO),$var['captcha']); ?>
 				<p class="field"><label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label></p>

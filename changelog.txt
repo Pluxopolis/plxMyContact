@@ -1,4 +1,8 @@
-﻿## Version 1.7.3 (31/01/2017) ##
+﻿## Version 1.7.4 (xx/xx/2017) ##
+[+] Langue néerlandaise (contribution William K.)
+[+] Traduction L_MSG_WELCOME manquante dans le fichier de langue en.php (contribution William K.)
+
+## Version 1.7.3 (31/01/2017) ##
 [+] Ajout d'un champ "objet" (désactivable) dans la page contact (contribution asmodai27)
 BUG Classe css active non appliquée (contribution EdzeronK)
 

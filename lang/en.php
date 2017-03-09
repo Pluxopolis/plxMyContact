@@ -33,6 +33,7 @@ $LANG = array(
 'L_ERROR_EMAIL'				=> 'Please enter a valid e-mail',
 
 # form.contact.php
+'L_MSG_WELCOME'				=> 'Thank you for completing the form below',
 'L_ERR_NAME'				=> 'Please enter your name',
 'L_ERR_EMAIL'				=> 'Please enter a valid e-mail',
 'L_ERR_CONTENT'				=> 'Please enter the content of your message',

@@ -1,4 +1,5 @@
 ﻿## Version 1.7.4 (xx/xx/2017) ##
+[+] Compatibilité PluXml 5.6
 [+] Langue néerlandaise (contribution William K.)
 [+] Traduction L_MSG_WELCOME manquante dans le fichier de langue en.php (contribution William K.)
 

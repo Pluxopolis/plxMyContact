@@ -26,7 +26,7 @@ class plxMyContact extends plxPlugin {
 		parent::__construct($default_lang);
 
 		$this->url = $this->getParam('url')=='' ? 'contact' : $this->getParam('url');
-				
+
 		# droits pour accèder à la page config.php du plugin
 		$this->setConfigProfil(PROFIL_ADMIN);
 

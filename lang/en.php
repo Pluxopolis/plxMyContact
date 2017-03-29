@@ -5,6 +5,7 @@ $LANG = array(
 'L_PAGE_TITLE'				=> 'Contact',
 
 # config.php
+'L_LANG_UNAVAILABLE'		=> 'Language not available : %s',
 'L_MAIN'					=> 'Main',
 'L_MAIL_AVAILABLE'			=> 'Mail sending function available',
 'L_MAIL_NOT_AVAILABLE'		=> 'Mail sending function unavailable',

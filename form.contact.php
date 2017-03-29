@@ -1,10 +1,16 @@
 <?php if(!defined('PLX_ROOT')) exit; ?>
 <?php
-
 # récupération d'une instance de plxShow
 $plxShow = plxShow::getInstance();
 $plxShow->plxMotor->plxCapcha = new plxCapcha();
 $plxPlugin = $plxShow->plxMotor->plxPlugins->getInstance('plxMyContact');
+
+# Si le fichier de langue n'existe pas
+$lang = $plxShow->plxMotor->aConf['default_lang'];
+if(!file_exists(PLX_PLUGINS.'plxMyContact/lang/'.$lang.'.php')) {
+	echo '<p>'.sprintf($plxPlugin->getLang('L_LANG_UNAVAILABLE'), PLX_PLUGINS.'plxMyContact/lang/'.$lang.'.php').'</p>';
+	return;
+}
 
 $error=false;
 $success=false;

@@ -87,7 +87,7 @@ if(!empty($_POST)) {
 			<?php if($plxPlugin->getParam('label')) : ?>
 			<label for="subject"><?php $plxPlugin->lang('L_FORM_SUBJECT') ?>&nbsp;:</label>
 			<?php endif; ?>
-			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.$plxPlugin->lang('L_FORM_SUBJECT').'" ' : '') ?>
+			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.$plxPlugin->getLang('L_FORM_SUBJECT').'" ' : '') ?>
 			<input <?php echo $placeholder ?>id="subject" name="subject" type="text" size="30" value="<?php echo plxUtils::strCheck($subject) ?>" maxlength="30" />
 		</p>
 		<?php endif; ?>

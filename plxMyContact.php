@@ -54,7 +54,7 @@ class plxMyContact extends plxPlugin {
 	 **/
 	public function AdminTopEndHead() {
 		if(basename($_SERVER['SCRIPT_NAME'])=='parametres_plugin.php') {
-			echo '<link href="'.PLX_PLUGINS.$this->plug['name'].'tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
+			echo '<link href="'.PLX_PLUGINS.$this->plug['name'].'/tabs/style.css" rel="stylesheet" type="text/css" />'."\n";
 		}
 	}
 

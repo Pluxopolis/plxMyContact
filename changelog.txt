@@ -5,6 +5,7 @@
 [+] Traduction L_MSG_WELCOME manquante dans le fichier de langue en.php (contribution William K.)
 [+] Ajout de l'id static-contact
 BUG Surbrillance du menu de la page statique
+BUG #57 Erreur d'affichage du message L_FORM_SUBJECT
 
 ## Version 1.7.3 (31/01/2017) ##
 [+] Ajout d'un champ "objet" (désactivable) dans la page contact (contribution asmodai27)

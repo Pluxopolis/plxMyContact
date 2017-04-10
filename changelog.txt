@@ -1,4 +1,7 @@
-﻿## Version 1.8 (29/03/2017) ##
+﻿## Version 1.8.1 (10/04/2017) ##
+BUG tableau PLX_MYMULTILINGUE non géré avec php 5.x+
+
+## Version 1.8 (29/03/2017) ##
 [+] Compatibilité PluXml 5.6
 [+] Compatibilité avec le plugin plxMyMultiLingue
 [+] Langue néerlandaise (contribution William K.)

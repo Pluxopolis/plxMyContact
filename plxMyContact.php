@@ -18,8 +18,14 @@ class plxMyContact extends plxPlugin {
 	public function __construct($default_lang) {
 
 		# gestion du multilingue plxMyMultiLingue
-		if(preg_match('/([a-z]{2})\/(.*)/i', plxUtils::getGets(), $capture)) {
-				$this->lang = $capture[1].'/';
+		$this->lang="";
+		if(defined('PLX_MYMULTILINGUE')) {
+			$lang = plxMyMultiLingue::_Lang();
+			if(!empty($lang)) {
+				if(isset($_SESSION['default_lang']) AND $_SESSION['default_lang']!=$lang) {
+					$this->lang = $lang.'/';
+				}
+			}
 		}
 
 		# appel du constructeur de la classe plxPlugin (obligatoire)
@@ -42,7 +48,33 @@ class plxMyContact extends plxPlugin {
 				$this->addHook('plxShowStaticListEnd', 'plxShowStaticListEnd');
 				$this->addHook('plxShowPageTitle', 'plxShowPageTitle');
 				$this->addHook('SitemapStatics', 'SitemapStatics');
+				if(defined('PLX_MYMULTILINGUE')) {
+					$this->addHook('ThemeEndHead', 'ThemeEndHead');
+				}
 			}
+		}
+	}
+
+	/** 
+	 * Méthode d'ajout des <link rel="alternate"... sur les pages
+	 * 
+	**/
+	public function ThemeEndHead() {
+		
+		if(defined('PLX_MYMULTILINGUE')) {			
+			$plxMML = is_array(PLX_MYMULTILINGUE)?PLX_MYMULTILINGUE:unserialize(PLX_MYMULTILINGUE);
+			$langues = empty($plxMML['langs']) ? array() : explode(',', $plxMML['langs']);;
+			$string = '<?php
+			if($plxMotor->mode=="'.$this->getParam('url').'") {
+			';
+			foreach($langues as $k=>$v)
+			{
+				$url_lang="";
+				if($_SESSION['default_lang']!=$v) $url_lang = $v.'/';
+				$string .= 'echo "\t<link rel=\"alternate\" hreflang=\"'.$v.'\" href=\"".$plxMotor->urlRewrite("?'.$url_lang.$this->getParam('url').'")."\" />\n";';
+			}
+			$string .= '} ?>';
+			echo $string;
 		}
 	}
 
@@ -121,7 +153,7 @@ class plxMyContact extends plxPlugin {
 		if(\$this->get && preg_match('/^".$this->url."\/?/',\$this->get)) {
 			\$this->mode = '".$this->url."';
 			\$prefix = str_repeat('../', substr_count(trim(PLX_ROOT.\$this->aConf['racine_statiques'], '/'), '/'));
-			\$this->cible = \$prefix.'plugins/plxMyContact/form';
+			\$this->cible = \$prefix.\$this->aConf['racine_plugins'].'plxMyContact/form';
 			\$this->template = '".$template."';
 			return true;
 		}

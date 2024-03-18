@@ -1,5 +1,6 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
-<?php
+<?php if(!defined('PLX_ROOT')) exit;
+
+$plugName = get_class($plxPlugin);
 
 # Control du token du formulaire
 plxToken::validateFormToken($_POST);
@@ -34,7 +35,7 @@ if(!empty($_POST)) {
 		$plxPlugin->setParam('thankyou_'.$lang, $_POST['thankyou_'.$lang], 'string');
 	}
 	$plxPlugin->saveParams();
-	header('Location: parametres_plugin.php?p=plxMyContact');
+	header('Location: parametres_plugin.php?p=' . $plugName);
 	exit;
 }
 
@@ -43,7 +44,7 @@ $var = array();
 $langs = array();
 foreach($aLangs as $lang) {
 	# chargement de chaque fichier de langue
-	$langs[$lang] = $plxPlugin->loadLang(PLX_PLUGINS.'plxMyContact/lang/'.$lang.'.php');
+	$langs[$lang] = $plxPlugin->loadLang(PLX_PLUGINS . $plugName . '/lang/'.$lang.'.php');
 	$var[$lang]['mnuName'] =  $plxPlugin->getParam('mnuName_'.$lang)=='' ? $langs[$lang]['L_DEFAULT_MENU_NAME'] : $plxPlugin->getParam('mnuName_'.$lang);
 	$var[$lang]['mnuText'] =  $plxPlugin->getParam('mnuText_'.$lang)=='' ? '' : $plxPlugin->getParam('mnuText_'.$lang);
 	$var[$lang]['thankyou'] = $plxPlugin->getParam('thankyou_'.$lang)=='' ? $langs[$lang]['L_DEFAULT_THANKYOU'] : $plxPlugin->getParam('thankyou_'.$lang);
@@ -61,15 +62,13 @@ $var['captcha'] = $plxPlugin->getParam('captcha')=='' ? '1' : $plxPlugin->getPar
 $var['url'] = $plxPlugin->getParam('url')=='' ? 'contact' : $plxPlugin->getParam('url');
 $var['label'] =  $plxPlugin->getParam('label')=='' ? 1 : $plxPlugin->getParam('label');
 $var['placeholder'] =  $plxPlugin->getParam('placeholder')=='' ? 0 : $plxPlugin->getParam('placeholder');
-# On récupère les templates des pages statiques
-$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style']);
-if ($array = $files->query('/^static(-[a-z0-9-_]+)?.php$/')) {
+# On récupère les templates des pages statiques du thème en cours
+$files = plxGlob::getInstance(PLX_ROOT.$plxAdmin->aConf['racine_themes'].$plxAdmin->aConf['style'],!1,!0,'');#Fix 5.9RC2+
+if ($array = $files->query('/^static(?:[_\-\w]+)?\.php$/')) {
 	foreach($array as $k=>$v)
 		$aTemplates[$v] = $v;
 }
-?>
 
-<?php
 if(function_exists('mail')) {
 	echo '<p style="color:green"><strong>'.$plxPlugin->getLang('L_MAIL_AVAILABLE').'</strong></p>';
 } else {
@@ -77,7 +76,7 @@ if(function_exists('mail')) {
 }
 ?>
 <div id="tabContainer">
-<form id="form_plxmycontact" action="parametres_plugin.php?p=plxMyContact" method="post">
+<form id="form_<?= $plugName ?>" action="parametres_plugin.php?p=<?= $plugName ?>" method="post">
 	<div class="tabs">
 		<ul>
 			<li id="tabHeader_main"><?php $plxPlugin->lang('L_MAIN') ?></li>
@@ -93,7 +92,7 @@ if(function_exists('mail')) {
 			<fieldset>
 				<p class="field"><label for="id_url"><?php $plxPlugin->lang('L_URL') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('url',$var['url'],'text','20-255') ?>
-				<p class="field"><label for="id_mnuDisplay"><?php echo $plxPlugin->lang('L_MENU_DISPLAY') ?>&nbsp;:</label></p>
+				<p class="field"><label for="id_mnuDisplay"><?= $plxPlugin->lang('L_MENU_DISPLAY') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('mnuDisplay',array('1'=>L_YES,'0'=>L_NO),$var['mnuDisplay']); ?>
 				<p class="field"><label for="id_mnuPos"><?php $plxPlugin->lang('L_MENU_POS') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('mnuPos',$var['mnuPos'],'text','2-5') ?>
@@ -111,7 +110,7 @@ if(function_exists('mail')) {
 				<?php plxUtils::printInput('subject',$var['subject'],'text','100-120') ?>
 				<p class="field"><label for="id_append_subject"><?php $plxPlugin->lang('L_APPEND_EMAIL_SUBJECT') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('append_subject',array('1'=>L_YES,'0'=>L_NO),$var['append_subject']); ?>
-				<p class="field"><label for="id_captcha"><?php echo $plxPlugin->lang('L_CAPTCHA') ?>&nbsp;:</label></p>
+				<p class="field"><label for="id_captcha"><?= $plxPlugin->lang('L_CAPTCHA') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('captcha',array('1'=>L_YES,'0'=>L_NO),$var['captcha']); ?>
 				<p class="field"><label for="id_template"><?php $plxPlugin->lang('L_TEMPLATE') ?>&nbsp;:</label></p>
 				<?php plxUtils::printSelect('template', $aTemplates, $var['template']) ?>
@@ -119,16 +118,16 @@ if(function_exists('mail')) {
 			<p><?php $plxPlugin->lang('L_COMMA') ?></p>
 		</div>
 		<?php foreach($aLangs as $lang) : ?>
-		<div class="tabpage" id="tabpage_<?php echo $lang ?>">
-			<?php if(!file_exists(PLX_PLUGINS.'plxMyContact/lang/'.$lang.'.php')) : ?>
-			<p><?php printf($plxPlugin->getLang('L_LANG_UNAVAILABLE'), PLX_PLUGINS.'plxMyContact/lang/'.$lang.'.php') ?></p>
+		<div class="tabpage" id="tabpage_<?= $lang ?>">
+			<?php if(!file_exists(PLX_PLUGINS . $plugName . '/lang/'.$lang.'.php')) : ?>
+			<p><?php printf($plxPlugin->getLang('L_LANG_UNAVAILABLE'), PLX_PLUGINS . $plugName . '/lang/'.$lang.'.php') ?></p>
 			<?php else : ?>
 			<fieldset>
-				<p class="field"><label for="id_mnuName_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_TITLE') ?>&nbsp;:</label></p>
+				<p class="field"><label for="id_mnuName_<?= $lang ?>"><?php $plxPlugin->lang('L_MENU_TITLE') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('mnuName_'.$lang,$var[$lang]['mnuName'],'text','20-20') ?>
-				<p class="field"><label for="id_mnuText_<?php echo $lang ?>"><?php $plxPlugin->lang('L_MENU_TEXT') ?>&nbsp;:</label></p>
+				<p class="field"><label for="id_mnuText_<?= $lang ?>"><?php $plxPlugin->lang('L_MENU_TEXT') ?>&nbsp;:</label></p>
 				<?php plxUtils::printArea('mnuText_'.$lang,$var[$lang]['mnuText'],'80','6') ?>
-				<p class="field"><label for="id_thankyou_<?php echo $lang ?>"><?php $plxPlugin->lang('L_THANKYOU_MESSAGE') ?>&nbsp;:</label></p>
+				<p class="field"><label for="id_thankyou_<?= $lang ?>"><?php $plxPlugin->lang('L_THANKYOU_MESSAGE') ?>&nbsp;:</label></p>
 				<?php plxUtils::printInput('thankyou_'.$lang,$var[$lang]['thankyou'],'text','100-120') ?>
 			</fieldset>
 			<?php endif; ?>
@@ -137,10 +136,10 @@ if(function_exists('mail')) {
 	</div>
 	<fieldset>
 		<p class="in-action-bar">
-			<?php echo plxToken::getTokenPostMethod() ?>
+			<?= plxToken::getTokenPostMethod() ?>
 			<input type="submit" name="submit" value="<?php $plxPlugin->lang('L_SAVE') ?>" />
 		</p>
 	</fieldset>
 </form>
 </div>
-<script type="text/javascript" src="<?php echo PLX_PLUGINS."plxMyContact/tabs/tabs.js" ?>"></script>
+<script type="text/javascript" src="<?= PLX_PLUGINS . $plugName ?>/tabs/tabs.js"></script>

@@ -1,21 +1,21 @@
-<?php if(!defined('PLX_ROOT')) exit; ?>
-<?php
+<?php if(!defined('PLX_ROOT')) exit;
+# Nom du Plugin
+$plugName = basename(__DIR__);
 # récupération d'une instance de plxShow
-$plxShow = plxShow::getInstance();
-$plxShow->plxMotor->plxCapcha = new plxCapcha();
-$plxPlugin = $plxShow->plxMotor->plxPlugins->getInstance('plxMyContact');
+$plxShow = $this; # plxShow::getInstance();
+$plxPlugin = $plxShow->plxMotor->plxPlugins->getInstance($plugName);
+$captcha = $plxPlugin->getParam('captcha')=='' ? '1' : $plxPlugin->getParam('captcha');
+if($captcha) $plxShow->plxMotor->plxCapcha = new plxCapcha();
 
 # Si le fichier de langue n'existe pas
 $lang = $plxShow->plxMotor->aConf['default_lang'];
-if(!file_exists(PLX_PLUGINS.'plxMyContact/lang/'.$lang.'.php')) {
-	echo '<p>'.sprintf($plxPlugin->getLang('L_LANG_UNAVAILABLE'), PLX_PLUGINS.'plxMyContact/lang/'.$lang.'.php').'</p>';
+if(!file_exists(PLX_PLUGINS . $plugName . '/lang/' . $lang . '.php')) {
+	echo '<p>' . sprintf($plxPlugin->getLang('L_LANG_UNAVAILABLE'), PLX_PLUGINS . $plugName . '/lang/' . $lang . '.php') . '</p>';
 	return;
 }
 
-$error=false;
-$success=false;
+$error=array();
 
-$captcha = $plxPlugin->getParam('captcha')=='' ? '1' : $plxPlugin->getParam('captcha');
 
 if(!empty($_POST)) {
 
@@ -23,7 +23,7 @@ if(!empty($_POST)) {
 	$mail=plxUtils::unSlash($_POST['mail']);
 	$subject = '';
 	if($plxPlugin->getParam('append_subject')) {
-		$subject = plxUtils::unSlash($_POST['subject']).' ';
+		$subject = plxUtils::unSlash($_POST['subject']) . ' ';
 	}
 	$content=plxUtils::unSlash($_POST['content']);
 
@@ -32,18 +32,21 @@ if(!empty($_POST)) {
 		$_SESSION['capcha']=sha1($_SESSION['capcha']);
 
 	if(trim($name)=='')
-		$error = $plxPlugin->getLang('L_ERR_NAME');
-	elseif(!plxUtils::checkMail($mail))
-		$error = $plxPlugin->getLang('L_ERR_EMAIL');
-	elseif(trim($content)=='')
-		$error = $plxPlugin->getLang('L_ERR_CONTENT');
-	elseif($captcha != 0 AND $_SESSION['capcha'] != sha1($_POST['rep']))
-		$error = $plxPlugin->getLang('L_ERR_ANTISPAM');
+		$error[] = $plxPlugin->getLang('L_ERR_NAME');
+	if(!plxUtils::checkMail($mail))
+		$error[] = $plxPlugin->getLang('L_ERR_EMAIL');
+	if(trim($content)=='')
+		$error[] = $plxPlugin->getLang('L_ERR_CONTENT');
+	if($captcha != 0 AND $_SESSION['capcha'] != sha1($_POST['rep']))
+		$error[] = $plxPlugin->getLang('L_ERR_ANTISPAM');
 	if(!$error) {
-		if(plxUtils::sendMail($name,$mail,$plxPlugin->getParam('email'),plxUtils::unSlash($plxPlugin->getParam('subject')).$subject,$content,'text',$plxPlugin->getParam('email_cc'),$plxPlugin->getParam('email_bcc')))
-			$success = $plxPlugin->getParam('thankyou_'.$plxPlugin->default_lang);
-		else
-			$error = $plxPlugin->getLang('L_ERR_SENDMAIL');
+		if(plxUtils::sendMail($name, $mail, $plxPlugin->getParam('email'), plxUtils::unSlash($plxPlugin->getParam('subject')) . $subject, $content, 'text', $plxPlugin->getParam('email_cc'), $plxPlugin->getParam('email_bcc'))) {
+			$_SESSION[$plugName . 'success'] = true;
+			header( 'Location: ' . $plxShow->plxMotor->racine . $plxShow->plxMotor->path_url );
+			exit;
+		}else{
+			$error[] = $plxPlugin->getLang('L_ERR_SENDMAIL');
+		}
 	}
 } else {
 	$name='';
@@ -51,52 +54,52 @@ if(!empty($_POST)) {
 	$subject = '';
 	$content='';
 }
-
+$holderParam = $plxPlugin->getParam('placeholder');
+$labelParam = $plxPlugin->getParam('label');
 ?>
-
 <div id="form_contact">
 	<?php if($error): ?>
-	<p class="contact_error"><?php echo $error ?></p>
+	<p class="contact_error"><?= implode('<br>', $error) ?></p>
 	<?php endif; ?>
-	<?php if($success): ?>
-	<p class="contact_success"><?php echo plxUtils::strCheck($success) ?></p>
+	<?php if(isset($_SESSION[$plugName . 'success'])): unset($_SESSION[$plugName . 'success']); ?>
+	<p class="contact_success"><?= plxUtils::strCheck($plxPlugin->getParam('thankyou_' . $plxPlugin->default_lang)) ?></p>
 	<?php else: ?>
-	<?php if($plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang)): ?>
+	<?php if($plxPlugin->getParam('mnuText_' . $plxPlugin->default_lang)): ?>
 	<p class="text_contact">
-	<?php echo $plxPlugin->getParam('mnuText_'.$plxPlugin->default_lang) ?>
+	<?= $plxPlugin->getParam('mnuText_' . $plxPlugin->default_lang) ?>
 	</p>
 	<?php endif; ?>
 	<form action="#form" method="post">
 		<fieldset>
 		<p>
-			<?php if($plxPlugin->getParam('label')) : ?>
+			<?php if($labelParam) : ?>
 			<label for="name"><?php $plxPlugin->lang('L_FORM_NAME') ?>&nbsp;:</label>
 			<?php endif; ?>
-			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.plxUtils::strCheck($plxPlugin->getLang('L_FORM_NAME')).'" ' : '') ?>
-			<input <?php echo $placeholder ?>id="name" name="name" type="text" size="30" value="<?php echo plxUtils::strCheck($name) ?>" maxlength="30" />
+			<?php $placeholder = ($holderParam ? 'placeholder="' . plxUtils::strCheck($plxPlugin->getLang('L_FORM_NAME')) . '" ' : '') ?>
+			<input <?= $placeholder ?>required id="name" name="name" type="text" size="30" value="<?= plxUtils::strCheck($name) ?>" maxlength="30" />
 		</p>
 		<p>
-			<?php if($plxPlugin->getParam('label')) : ?>
+			<?php if($labelParam) : ?>
 			<label for="mail"><?php $plxPlugin->lang('L_FORM_MAIL') ?>&nbsp;:</label>
 			<?php endif; ?>
-			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.plxUtils::strCheck($plxPlugin->getLang('L_FORM_MAIL')).'" ' : '') ?>
-			<input <?php echo $placeholder ?>id="mail" name="mail" type="text" size="30" value="<?php echo plxUtils::strCheck($mail) ?>" />
+			<?php $placeholder = ($holderParam ? 'placeholder="' . plxUtils::strCheck($plxPlugin->getLang('L_FORM_MAIL')) . '" ' : '') ?>
+			<input <?= $placeholder ?>required id="mail" name="mail" type="mail" size="30" value="<?= plxUtils::strCheck($mail) ?>" />
 		</p>
 		<?php if($plxPlugin->getParam('append_subject')) : ?>
 		<p>
-			<?php if($plxPlugin->getParam('label')) : ?>
+			<?php if($labelParam) : ?>
 			<label for="subject"><?php $plxPlugin->lang('L_FORM_SUBJECT') ?>&nbsp;:</label>
 			<?php endif; ?>
-			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.$plxPlugin->getLang('L_FORM_SUBJECT').'" ' : '') ?>
-			<input <?php echo $placeholder ?>id="subject" name="subject" type="text" size="30" value="<?php echo plxUtils::strCheck($subject) ?>" maxlength="30" />
+			<?php $placeholder = ($holderParam ? 'placeholder="' . $plxPlugin->getLang('L_FORM_SUBJECT') . '" ' : '') ?>
+			<input <?= $placeholder ?>id="subject" name="subject" type="text" size="30" value="<?= plxUtils::strCheck($subject) ?>" maxlength="30" />
 		</p>
 		<?php endif; ?>
 		<p>
-			<?php if($plxPlugin->getParam('label')) : ?>
+			<?php if($labelParam) : ?>
 			<label for="message"><?php $plxPlugin->lang('L_FORM_CONTENT') ?>&nbsp;:</label>
 			<?php endif; ?>
-			<?php $placeholder = ($plxPlugin->getParam('placeholder') ? 'placeholder="'.plxUtils::strCheck($plxPlugin->getLang('L_FORM_CONTENT')).'" ' : '') ?>
-			<textarea <?php echo $placeholder ?>id="message" name="content" cols="60" rows="12"><?php echo plxUtils::strCheck($content) ?></textarea>
+			<?php $placeholder = ($holderParam ? 'placeholder="' . plxUtils::strCheck($plxPlugin->getLang('L_FORM_CONTENT')) . '" ' : '') ?>
+			<textarea <?= $placeholder ?>required id="message" name="content" cols="60" rows="12"><?= plxUtils::strCheck($content) ?></textarea>
 		</p>
 		<?php if($captcha): ?>
 		<p>
